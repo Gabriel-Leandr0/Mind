@@ -1,0 +1,8 @@
+C:\Dev\Mind\obj\Debug\net8.0\Mind.csproj.AssemblyReference.cache
+C:\Dev\Mind\obj\Debug\net8.0\Mind.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\Mind\obj\Debug\net8.0\Mind.AssemblyInfoInputs.cache
+C:\Dev\Mind\obj\Debug\net8.0\Mind.AssemblyInfo.cs
+C:\Dev\Mind\obj\Debug\net8.0\Mind.csproj.CoreCompileInputs.cache
+C:\Dev\Mind\obj\Debug\net8.0\Mind.MvcApplicationPartsAssemblyInfo.cs
+C:\Dev\Mind\obj\Debug\net8.0\Mind.MvcApplicationPartsAssemblyInfo.cache
+C:\Dev\Mind\obj\Debug\net8.0\Mind.sourcelink.json

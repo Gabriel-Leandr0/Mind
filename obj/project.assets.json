@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\Mind\\Mind\\Mind.csproj",
+      "projectUniqueName": "C:\\Dev\\Mind\\Mind.csproj",
       "projectName": "Mind",
-      "projectPath": "C:\\Dev\\Mind\\Mind\\Mind.csproj",
+      "projectPath": "C:\\Dev\\Mind\\Mind.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\Mind\\Mind\\obj\\",
+      "outputPath": "C:\\Dev\\Mind\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"

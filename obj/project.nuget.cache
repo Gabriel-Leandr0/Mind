@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5iNL86+JeHFCGDriDu2OQa9n/WayEru6OYmhsdiaQInS626ogazzKF08aWwAcw+2UxKq9Cu/MvIq29Jyg6f+Jw==",
+  "dgSpecHash": "JLsEO0ozy9QIam71jD6GYx8Dbd261o6xd6hizmamW14RMpdndLXtK0gkbGTbCJ0eNqy7/pGk0MWTQUnR6hK/Sg==",
   "success": true,
-  "projectFilePath": "C:\\Dev\\Mind\\Mind\\Mind.csproj",
+  "projectFilePath": "C:\\Dev\\Mind\\Mind.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gabri\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.1\\microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "C:\\Users\\gabri\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
