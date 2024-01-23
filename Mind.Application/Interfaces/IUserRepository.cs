@@ -8,8 +8,7 @@ namespace Mind.Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetUserById(int id);
-        Task<User> GetUserByEmail(string email);
-        Task<User> GetUserByName(string name);
+        User GetUserById(int userId);
+        
     }
 }
