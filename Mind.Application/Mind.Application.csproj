@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
   <ProjectReference Include="..\Mind.Domain\Mind.Domain.csproj" />
-</ItemGroup>
+  <ProjectReference Include="..\Mind.Infrastructure\Mind.Infrastructure.csproj" />
+  <ProjectReference Include="..\Mind.Read\Mind.Read.csproj" />
+  </ItemGroup>
 
 </Project>

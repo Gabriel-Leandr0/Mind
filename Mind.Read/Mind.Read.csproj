@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+		<ProjectReference Include="..\Mind.Domain\Mind.Domain.csproj" />
+		<ProjectReference Include="..\Mind.Infrastructure\Mind.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,24 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Mind.Application.Interfaces;
-using Mind.Domain;
+using Mind.Domain.DTos;
+using Mind.Domain.ViewModels;
 
-namespace Mind.Application.Services
+namespace Mind.Application.Services;
+
+public class UserService : IUserService
 {
-    public class UserService
+    public readonly IUserQue
+
+    Task<ResponseGeneric> IUserService.CreateUser(CreateUserViewModel createUserViewModel)
     {
-        private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
-        {
-            this._userRepository = userRepository;
-        }
-
-        public User GetUserById(int userId)
-        {
-            return _userRepository.GetUserById(userId);
-        }
+        throw new System.NotImplementedException();
     }
 }
