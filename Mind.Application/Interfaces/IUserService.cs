@@ -9,6 +9,6 @@ namespace Mind.Application.Interfaces;
 
 public interface IUserService
 {
- public Task<ResponseGeneric> CreateUser(CreateUserViewModel createUserViewModel);
+ public Task<ResponseGeneric> CreateUser(CreateUserDto createUserDto);
  
 }

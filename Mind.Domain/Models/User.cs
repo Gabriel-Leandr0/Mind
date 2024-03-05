@@ -1,41 +1,41 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Mind.Presentation.Models;
+namespace Mind.Domain.Models;
 
-public class Users
+public class User
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]    
-    public int UserId { get; set; }
+    [Required]
+    public int Id { get; set; }
 
     [StringLength(80)]
+    [Required(ErrorMessage = "O campo nome é obrigatório")]
     public string Username { get; set; }
 
     [StringLength(11)]
+    [Required(ErrorMessage = "O campo cpf é obrigatório")]
     public string Cpf { get; set; }
 
+    [Required(ErrorMessage = "O campo data de nascimento é obrigatório")]
     public DateTime BornDt { get; set; }
 
-    [ForeignKey("Roles")]
-    public string RoleId { get; set; }
+    public int RoleId { get; set; }
+
+    public virtual Role Role {get; set; }
 
     [StringLength(250)]
     public string Biography { get; set; }
 
     public string UserImage { get; set; }
-    
+
     [StringLength(80)]    
     public string Email { get; set; }
 
     [StringLength(80)]
-    public byte[] Password { get; set; }
+    public string Password { get; set; }
 
     public DateTime CreatedDt { get; set; } = DateTime.UtcNow;
 
     public bool Active { get; set; } = true;
+    public virtual ICollection<Project> Projects { get; set; }
 }
