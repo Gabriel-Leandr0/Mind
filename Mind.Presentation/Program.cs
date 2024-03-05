@@ -4,16 +4,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Mind.Application.Interfaces;
 using Mind.Application.Services;
-using Mind.Application.Repositories;
 using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+//---------------------------------------------------------
 
-// Adicione serviços ao contêiner.
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<UserService>();
+
+
+// auto mapper serve para mapear um objeto para outro objeto
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+// NewtonsoftJson serve para resolver problemas de referência cíclica (looping infinito)
+// recebe um objeto e transforma em um json
+builder.Services.AddControllers().AddNewtonsoftJson();
+
+
+//---------------------------------------------------------
 
 // Adicione os serviços de controle
 builder.Services.AddControllers(); // Adicione esta linha
