@@ -1,16 +1,19 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Mind.Application.Interfaces;
-using Mind.Application.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Mind.Infrastructure.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 //---------------------------------------------------------
 
+
+
+
+//Inicia a conexão com o banco de dados
+    //-UseLazyLoadingProxies() serve para carregar os dados relacionados (campos virtuais) de forma preguiçosa
+builder.Services.AddDbContext<MindDbContext>(options =>
+ options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("MindConnection")));
 
 
 // auto mapper serve para mapear um objeto para outro objeto
@@ -45,7 +48,10 @@ app.UseSwaggerUI(c =>
 });
 
 // Configuração do middleware e roteamento.
-app.UseRouting();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

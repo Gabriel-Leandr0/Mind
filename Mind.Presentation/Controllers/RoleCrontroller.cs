@@ -9,7 +9,7 @@ namespace Mind.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RoleCrontroller : ControllerBase
+    public class RoleController : ControllerBase
     {
         [HttpPost]
         public IActionResult CreateRole([FromBody] CreateRoleDto createRoleDto)
