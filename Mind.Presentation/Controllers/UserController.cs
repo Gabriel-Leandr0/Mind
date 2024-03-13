@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mind.Domain.DTos;
+using Mind.Domain.Models;
 using Mind.Domain.ViewModels;
+using Mind.Infrastructure.Data;
 
 namespace Mind.Presentation.Controllers
 {
@@ -12,45 +15,47 @@ namespace Mind.Presentation.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly MindDbContext _context;
+        private readonly IMapper _mapper;
 
-        private static List<ReadUserViewModel> _users = new List<ReadUserViewModel>();
-
+        public UserController(MindDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
         [HttpPost]
-        public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
+        public IActionResult CreateUser([FromBody] CreateUserDto userDto)
         {
-            var newUser = new ReadUserViewModel
-            {
-                Id = _users.Count + 1, // Atribui um ID fictício
-                UserName = createUserDto.UserName,
-                RoleId = createUserDto.RoleId,
-                Cpf = createUserDto.Cpf,
-                // Outras propriedades do usuário
-            };
-
-            _users.Add(newUser);
-
-            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+            var user = _mapper.Map<User>(userDto);
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetUserById), new { Id = user.Id }, user);
         }
-        
-        
+
+
+
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public IEnumerable<ReadUserDto> GetUsersList()
         {
-            return Ok(_users);
+
+            var userList = _mapper.Map<List<ReadUserDto>>(_context.Users.ToList());
+            return userList;
+
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
-            var user = _users.Find(u => u.Id == id);
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 se o usuário não for encontrado
             }
 
-            return Ok(user);
+            var userDto = _mapper.Map<ReadUserDto>(user);
+            return Ok(userDto); // Retorna 200 e o usuário se encontrado
         }
-        
+
     }
 }
