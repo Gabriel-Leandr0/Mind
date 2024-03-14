@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mind.Domain.ViewModels;
 
-namespace Mind.Domain.DTos
+namespace Mind.Domain.DTos;
+
+public class ResponseGeneric
 {
-    public class ResponseGeneric
-    {
-        public ResponseViewModel response { get; set; }
-        public object data { get; set; }
-    }
+    public ResponseViewModel response { get; set; }
+    public object data { get; set; }
 }

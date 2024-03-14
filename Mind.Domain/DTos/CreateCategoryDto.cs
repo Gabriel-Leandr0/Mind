@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mind.Domain.DTos;
 
-public class ReadRoleDto
+public class CreateCategoryDto
 {
-    public int Id { get; set; }
-    public string RoleName { get; set; }
+    public string CategoryName { get; set; }
 }

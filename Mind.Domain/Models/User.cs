@@ -21,14 +21,14 @@ public class User
 
     public int RoleId { get; set; }
 
-    public virtual Role Role {get; set; }
+    public virtual Role Role { get; set; }
 
     [StringLength(250)]
     public string Biography { get; set; }
 
     public string UserImage { get; set; }
 
-    [StringLength(80)]    
+    [StringLength(80)]
     public string Email { get; set; }
 
     [StringLength(80)]
