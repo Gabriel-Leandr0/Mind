@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Mind.Domain.DTos;
 using Mind.Domain.Models;
-using Mind.Domain.ViewModels;
 using Mind.Infrastructure.Data;
 
 namespace Mind.Presentation.Controllers;
@@ -25,18 +20,23 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateUser([FromBody] CreateUserDto userDto)
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
     {
-        var user = _mapper.Map<User>(userDto);
+        var user = _mapper.Map<User>(createUserDto);
         _context.Users.Add(user);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(GetUserById), new { Id = user.Id }, user);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
     }
 
 
 
     [HttpGet]
-    public IEnumerable<ReadUserDto> GetUsersList()
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    public IEnumerable<ReadUserDto> GetAllUsers()
     {
 
         var userList = _mapper.Map<List<ReadUserDto>>(_context.Users.ToList());
@@ -45,16 +45,18 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
     public IActionResult GetUserById(int id)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
         if (user == null)
         {
-            return NotFound(); // Retorna 404 se o usuário não for encontrado
+            return NotFound();
         }
 
         var userDto = _mapper.Map<ReadUserDto>(user);
-        return Ok(userDto); // Retorna 200 e o usuário se encontrado
+        return Ok(userDto);
     }
 
 }
