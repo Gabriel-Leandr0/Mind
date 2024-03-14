@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Inicia a conexão com o banco de dados
-    //-UseLazyLoadingProxies() serve para carregar os dados relacionados (campos virtuais) de forma preguiçosa
+//-UseLazyLoadingProxies() serve para carregar os dados relacionados (campos virtuais) de forma preguiçosa
 builder.Services.AddDbContext<MindDbContext>(options =>
  options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("MindConnection")));
 

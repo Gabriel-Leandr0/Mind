@@ -9,5 +9,5 @@ namespace Mind.Read.Interface;
 public interface IUserQuery
 {
     Task<User> GetUsuarioById(int id);
-    
+
 }
