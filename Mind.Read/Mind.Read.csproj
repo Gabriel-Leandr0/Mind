@@ -10,4 +10,8 @@
 		<ProjectReference Include="..\Mind.Infrastructure\Mind.Infrastructure.csproj" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+  </ItemGroup>
+
 </Project>

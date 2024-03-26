@@ -1,8 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Mind.Application.Interfaces;
 using Mind.Domain.DTos;
+using Mind.Domain.DTos.User;
 using Mind.Domain.Models;
 using Mind.Infrastructure.Data;
+using Mind.Read.Interface;
 
 namespace Mind.Presentation.Controllers;
 
@@ -10,53 +13,49 @@ namespace Mind.Presentation.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly MindDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IUserService _userService;
+    private readonly IUserQuery _userQuery;
 
-    public UserController(MindDbContext context, IMapper mapper)
+    public UserController(IMapper mapper, IUserService userService, IUserQuery userQuery)
     {
-        _context = context;
         _mapper = mapper;
+        _userService = userService;
+        _userQuery = userQuery;
     }
 
-    [HttpPost]
-    [ProducesResponseType(201)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+    [HttpPost("api/users/create")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<ResponseGeneric>> CreateUser(CreateUserDto createUserDto)
     {
-        var user = _mapper.Map<User>(createUserDto);
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+        return await _userService.CreateUser(createUserDto);
     }
 
-
-
-    [HttpGet]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    public IEnumerable<ReadUserDto> GetAllUsers()
+    [HttpPut("api/users/update")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<ResponseGeneric>> UpdateUser(UpdateUserDto updateUserDto)
     {
-
-        var userList = _mapper.Map<List<ReadUserDto>>(_context.Users.ToList());
-        return userList;
-
+        return await _userService.UpdateUser(updateUserDto);
     }
 
-    [HttpGet("{id}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    public IActionResult GetUserById(int id)
+    [HttpGet("api/users/find")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> FindUser(string email)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Id == id);
+        var user = await _userQuery.GetUserByEmail(email);
         if (user == null)
-        {
             return NotFound();
-        }
-
-        var userDto = _mapper.Map<ReadUserDto>(user);
-        return Ok(userDto);
+        return Ok(user);
     }
-
 }

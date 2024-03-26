@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mind.Domain.DTos;
+using Mind.Domain.DTos.User;
 using Mind.Domain.Models;
 
 namespace Mind.Infrastructure.Profiles;

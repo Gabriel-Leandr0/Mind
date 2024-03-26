@@ -25,9 +25,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 //Configuração do JWT
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
-var issuer = builder.Configuration["Jwt:Issuer"];
-var audience = builder.Configuration["Jwt:Audience"];
+var jwtHashKeyBase64 = builder.Configuration["Auth:JwtHashKey"];
+var encryptionKeyBase64 = builder.Configuration["Auth:EncryptionKey"];
+
+var jwtHashKey = Convert.FromBase64String(jwtHashKeyBase64);
+var encryptionKey = Convert.FromBase64String(encryptionKeyBase64);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(bearer =>
@@ -38,17 +40,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         bearer.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
+            IssuerSigningKey = new SymmetricSecurityKey(jwtHashKey),
             ValidateIssuer = true,
-            ValidIssuer = issuer,
             ValidateAudience = true,
-            ValidAudience = audience,
             ClockSkew = TimeSpan.Zero // Remove o clock skew para evitar problemas com a validação do token.
         };
     });
 
+
 // Adicione os serviços de controle
 builder.Services.AddControllers();
+
+//Injeção de dependência
+DependencyInjection.AddServices(builder.Services, builder.Configuration);
 
 // Configuração do Swagger
 builder.Services.AddSwaggerGen(c =>
