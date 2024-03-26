@@ -23,7 +23,7 @@ public class UserQuery : IUserQuery
         try
         {
             StringBuilder query = new();
-            query.Append("SELECT * FROM User WHERE Email = @email");
+            query.Append("SELECT * FROM Users WHERE Email = @email");
 
             var result = await _dbSession.Connection.QueryFirstOrDefaultAsync<User>(query.ToString(), new { email });
             return result;
